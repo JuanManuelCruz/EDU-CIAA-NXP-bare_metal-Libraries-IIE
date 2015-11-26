@@ -1,0 +1,9 @@
+# LPCXPresso & Eclipse files
+/**/.metadata
+/**/.settings
+/**/RemoteSystemsTempFiles
+/**/Debug
+*.launch
+*.cproject
+*.project
+.settings
