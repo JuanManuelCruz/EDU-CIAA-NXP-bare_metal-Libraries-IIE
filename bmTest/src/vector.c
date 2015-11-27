@@ -68,7 +68,6 @@ extern void GPIO4_IRQHandler(void);
 extern void GPIO5_IRQHandler(void);
 extern void GPIO6_IRQHandler(void);
 extern void GPIO7_IRQHandler(void);
-extern void DMA_IRQHandler(void);
 
 /*==================[internal data definition]===============================*/
 
@@ -229,7 +228,7 @@ void (* const g_pfnVectors[])(void) = {
    /*** User Interruptions ***/
    ISR_NoHandler,      /* 0x10 0x00000040 - No Handler set for ISR DAC (IRQ 0) */
    ISR_NoHandler,      /* 0x11 0x00000044 - No Handler set for ISR M0APP (IRQ 1) */
-   DMA_IRQHandler,      /* 0x12 0x00000048 - No Handler set for ISR DMA (IRQ 2) */
+   ISR_NoHandler,      /* 0x12 0x00000048 - No Handler set for ISR DMA (IRQ 2) */
    ISR_NoHandler,      /* 0x13 0x0000004C - No Handler set for ISR RES1 (IRQ 3) */
    ISR_NoHandler,      /* 0x14 0x00000050 - No Handler set for ISR FLASH_EEPROM (IRQ 4) */
    ISR_NoHandler,      /* 0x15 0x00000054 - No Handler set for ISR ETH (IRQ 5) */
