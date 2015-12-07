@@ -92,15 +92,19 @@
 #define TEST_GPIOsB	5		/*	Test B - GPIO0, GPIO1, GPIO2, GPIO3, GPIO4,	*/
 							/*	         GPIO5, GPIO6, GPIO7, GPIO8			*/
 #define TEST_IRQs	6		/*	Test TECLA1, TECLA2, TECLA3, TECLA4	on IRQs	*/
-							/*	Test  GPIO1,  GPIO3,  GPIO5,  GPIO7 on IRQs	*/
+							/*	      GPIO1,  GPIO3,  GPIO5,  GPIO7 on IRQs	*/
+#define TEST_ADCs	7		/*	Test ADCX on LEDs & RGBs					*/
+#define TEST_DACsA	8		/*	Test DAC => triangular wave					*/
+#define TEST_DACsB	9		/*	Test DAC => sine wave						*/
+#define	TEST_RITs	10		/*	Test RIT on LED1							*/
 
-#define TEST	TEST_IRQs	/*	Type the mane of Test to do here 			*/
+#define TEST	TEST_RITs	/*	Type the mane of Test to do here 			*/
 
 /*==================[internal data declaration]==============================*/
 #if (TEST == TEST_IRQs)
 
 static void	interrupcionTecla1 (void);
-static void interrupcionTecla2 (void);
+static void	interrupcionTecla2 (void);
 static void	interrupcionTecla3 (void);
 static void	interrupcionTecla4 (void);
 static void	interrupcionGpio1 (void);
@@ -110,6 +114,11 @@ static void	interrupcionGpio7 (void);
 
 #endif
 
+#if (TEST == TEST_RITs)
+
+static void	interrupcionRit (void);
+
+#endif
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -138,11 +147,11 @@ int main (void)
  	uint32_t	delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	delay = 250;									/*	delay = 250mS			*/
 
- 	while(1) {
+ 	while (1) {
 
 	 	for (idx = 0; idx < (sizeof (rgb) / sizeof (rgb_t)); ++idx) {
 	 	 	initRgb (rgb[idx]);
@@ -175,11 +184,11 @@ int main (void)
  	uint32_t	delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	delay = 250;									/*	delay = 250mS			*/
 
- 	while(1) {
+ 	while (1) {
 
 	 	for (idx = 0; idx < (sizeof (led) / sizeof (led_t)); ++idx) {
 	 	 	initLed (led[idx]);
@@ -215,12 +224,12 @@ int main (void)
  	uint32_t	period, delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	period = 1;											/*	period = 1uS to 1000000uS	*/
  	delay = 50;											/*	delay = 50mS				*/
 
- 	while(1) {
+ 	while (1) {
 		for (idx = 0; idx < (sizeof (pwm) / sizeof (pwm_t)); ++idx) {
 			configPWM (period, pwm[idx]);				/*	PWM T = 1uS	*/
 			startPWM ();								/*	Start PWM	*/
@@ -253,7 +262,7 @@ int main (void)
 	uint32_t	period, delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	idx = 0;										/*	PWM on LED1					*/
  	period = 10;									/*	period = 1uS to 1000000uS	*/
@@ -262,7 +271,7 @@ int main (void)
  	configPWM (period, pwm[idx]);					/*	PWM T = period on ledPWM	*/
  	configUart (9600);								/*	UART baudrate = 9600		*/
 
-	while(1) {
+	while (1) {
 		startPWM();									/*	Start PWM					*/
 
 		for (data = 0; data < 255; data += 5) {
@@ -299,13 +308,13 @@ int main (void)
  	uint32_t	delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	delay = 10;											/*	delay = 10mS				*/
 	for (idx = 0; idx < (sizeof (gpio) / sizeof (gpio_t)); ++idx)
 			initGpio (gpio[idx], OUTPUT);				/*	Init all GPIO´s => OUTPUT	*/
 
-	while(1) {
+	while (1) {
 
 		for (idx = 0; idx < (sizeof (gpio) / sizeof (gpio_t)); ++idx) {
 			toggleGpio(gpio[idx]);
@@ -334,7 +343,7 @@ int main (void)
  	uint32_t	delay;
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	delay = 1;											/*	delay = 1mS				*/
 	initGpio (gpio[0], OUTPUT);							/*	Init GPIO´s => OUTPUT 		*/
@@ -343,7 +352,7 @@ int main (void)
 	initGpio (gpio[5], OUTPUT);
 	initGpio (gpio[8], OUTPUT);
 
-	while(1) {
+	while (1) {
 
 		toggleGpio(gpio[0]);
 
@@ -371,12 +380,13 @@ int main (void)
 #if (TEST == TEST_IRQs)
  	/*	Test TECLA1, TECLA2, TECLA3, TECLA4	on IRQs	*/
 	/*	Test  GPIO1,  GPIO3,  GPIO5,  GPIO7 on IRQs	*/
+
 int main (void)
 {
  	/* perform the needed initialization here */
 
  	/* add your code here */
- 	initBoard();
+ 	initBoard ();
 
  	configIrq (irq[0],  irqPin[0], interrupcionTecla1, 50);		/*	IRQ0 on TECLA1, debounce = 50mS*/
 	configIrq (irq[1],  irqPin[1], interrupcionTecla2, 50);		/*	IRQ1 on TECLA2, debounce = 50mS	*/
@@ -387,7 +397,7 @@ int main (void)
 	configIrq (irq[6],  irqPin[9],  interrupcionGpio5, 50);		/*	IRQ4 on  GPIO5, debounce = 50mS	*/
 	configIrq (irq[7], irqPin[11],  interrupcionGpio7, 50);		/*	IRQ4 on  GPIO7, debounce = 50mS	*/
 
-	while(1)
+	while (1)
 		__WFI();										/*	Wait for Interrupt	*/
 
 	return 0;
@@ -447,6 +457,147 @@ void interrupcionGpio7 (void)
 
 #endif
 
+
+#if (TEST == TEST_ADCs)
+	/*	Test ADCX on LEDs & RGBs					*/
+
+int main (void)
+{
+ 	/* perform the needed initialization here */
+	uint8_t		idx;
+	uint16_t 	value;
+ 	uint32_t	delay;
+
+ 	/* add your code here */
+ 	initBoard ();
+
+ 	delay = 5;											/*	delay = 5mS				*/
+
+	while (1)
+	{
+		value = readAdc (adc[3]);
+
+	 	for (idx = 0; idx < (sizeof (led) / sizeof (led_t)); ++idx) {
+	 	 	clearLed (led[idx]);
+	 	}
+
+	 	for (idx = 0; idx < (sizeof (rgb) / sizeof (rgb_t)); ++idx) {
+	 	 	clearRgb (rgb[idx]);
+	 	}
+
+	 	if (value > (5 * 1023/6))
+	 		setRgb (rgb[0]);							/*	Over of (5/6) 3.3V		*/
+	 	else
+	 		if (value > (4 * 1023/6))
+	 			setRgb (rgb[1]);						/*	Over of (4/6) 3.3V		*/
+	 		else
+	 			if (value > (3 * 1023/6))
+	 				setRgb (rgb[2]);					/*	Over of (3/6) 3.3V		*/
+	 			else
+	 				if (value > (2 * 1023/6))
+	 					setLed (led[0]);				/*	Over of (2/6) 3.3V		*/
+	 				else
+	 					if (value > (1 * 1023/6))
+	 						setLed (led[1]);			/*	Over of (1/6) 3.3V		*/
+	 					else
+	 						setLed (led[2]);			/*	Under of (1/6) * 3.3V	*/
+
+	 	delay_ms (delay);
+	}
+
+	return 0;
+}
+
+#endif
+
+
+#if (TEST == TEST_DACsA)
+	/*	Test DAC => triangular wave											*/
+	/*	Place ORC passive probes on DAC pin of EDU-CIAA-NXP P1 connector	*/
+
+
+int main (void)
+{
+ 	/* perform the needed initialization here */
+	uint16_t 	value;
+	uint32_t	delay;
+
+ 	/* add your code here */
+ 	initBoard ();
+
+ 	delay = 1;													/*	delay = 1mS				*/
+
+	while (1) {
+	 	for (value = 0; value < DAC_VALUE_SIZE; value += 5) {	/*	value = 0 -> 0x400, value += 5 & delay = 1mS	*/
+	 		setDacValue (value);
+	 		delay_ms (delay);
+	 	}
+	}
+
+	return 0;
+}
+
+#endif
+
+
+#if (TEST == TEST_DACsB)
+	/*	Test DAC => sine wave												*/
+	/*	Place ORC passive probes on DAC pin of EDU-CIAA-NXP P1 connector	*/
+
+#define	sineWave_t	uint16_t
+const sineWave_t sineWave [] = {
+	128, 153, 178, 200, 220, 236, 247, 254,
+	255, 251, 242, 228, 211, 189, 166, 140,
+	115,  89,  66,  44,  27,  13,   4,   0,
+	  1,   8,  19,  35,  55,  77, 102, 127};
+
+int main (void)
+{
+ 	/* perform the needed initialization here */
+	uint8_t		idx;
+	uint16_t 	value;
+	uint32_t	delay;
+
+ 	/* add your code here */
+ 	initBoard ();
+
+ 	delay = 1;													/*	delay = 1mS				*/
+
+	while (1) {
+	 	for (idx = 0; idx < (sizeof (sineWave) / sizeof (sineWave_t)); ++idx) {
+	 		value = 4 * sineWave[idx];
+	 		setDacValue (value);								/*	value => 4 * tabla[idx], ++idx & delay = 1mS	*/
+	 		delay_ms (delay);
+	 	}
+	}
+
+	return 0;
+}
+
+#endif
+
+
+#if (TEST == TEST_RITs)
+	/*	Test RIT on LED1							*/
+
+int main (void)
+{
+
+	/* add your code here */
+ 	initBoard ();
+
+ 	configRit (250, interrupcionRit);							/*	RIT	->	250mS	& interrupcionRit	*/
+
+	/* LED is toggled in interrupt handler */
+	while (1);
+}
+
+
+void interrupcionRit (void)
+{
+	toggleLed (led[1]);
+}
+#endif
 
 
 /** @} doxygen end group definition */

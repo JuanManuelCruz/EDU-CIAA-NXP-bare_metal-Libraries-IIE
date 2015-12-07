@@ -7,10 +7,9 @@
 
 
 #include "board.h"
-#include "delays.h"
 
 
-void initBoard(void)
+void initBoard (void)
 {
 	// Setup Clock at 1/4
 	Chip_SetupCoreClock(CLKIN_IRC, MAX_CLOCK_FREQ/4, true);
@@ -19,11 +18,12 @@ void initBoard(void)
 	SystemCoreClockUpdate();
 	SysTick_Config(SystemCoreClock/(1000));
 
-	initLeds();
-	initRgbs();
-	initTeclas();
-	initGpios();
-	Board_UART_Init(LPC_UARTX);
-
+	initLeds ();
+	initRgbs ();
+	initTeclas ();
+	initGpios ();
+	initUarts (LPC_UARTX);
+	initAdcs ();
+	initDac ();
 }
 

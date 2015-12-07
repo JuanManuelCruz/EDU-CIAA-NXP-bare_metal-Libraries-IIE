@@ -14,11 +14,11 @@
 #endif
 #if (lpc4337 == CPU)
 #include "chip.h"
+#include "cmsis_43xx.h"
 #elif (mk60fx512vlq15 == CPU)
 #else
 #endif
 
-#include "cmsis_43xx.h"
 
 #define debounce_t	uint32_t
 

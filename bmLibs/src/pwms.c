@@ -5,8 +5,8 @@
  *      Author: Juan Manuel Cruz
  */
 
+
 #include "pwms.h"
-#include "delays.h"
 
 
 typedef struct

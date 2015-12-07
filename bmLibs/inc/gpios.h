@@ -14,9 +14,11 @@
 #endif
 #if (lpc4337 == CPU)
 #include "chip.h"
+#include "cmsis_43xx.h"
 #elif (mk60fx512vlq15 == CPU)
 #else
 #endif
+
 
 /*	GPIO0 => P6_01 en GPIO 3[ 0] *
  *  GPIO1 => P6_04 en GPIO 3[ 3] *

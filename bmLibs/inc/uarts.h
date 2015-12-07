@@ -14,9 +14,11 @@
 #endif
 #if (lpc4337 == CPU)
 #include "chip.h"
+#include "cmsis_43xx.h"
 #elif (mk60fx512vlq15 == CPU)
 #else
 #endif
+
 
 //#define UARTNum 0
 //#define UARTNum 1
@@ -61,10 +63,10 @@
 #endif
 
 
-void Board_UART_Init(LPC_USART_T *pUART);
-void configUart(uint32_t baud);
-void setUartTx(uint8_t data);
-uint8_t getUartData(void);
+void initUarts (LPC_USART_T *pUART);
+void configUart (uint32_t baud);
+void setUartTx (uint8_t data);
+uint8_t getUartData (void);
 
 
 #endif /* UARTS_H_ */

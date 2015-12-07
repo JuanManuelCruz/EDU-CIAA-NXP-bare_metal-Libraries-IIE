@@ -6,8 +6,7 @@
 
 
 #include "uarts.h"
-#include "delays.h"
-#include "cmsis_43xx.h"
+
 
 /* Transmit and receive ring buffers */
 STATIC RINGBUFF_T txring, rxring;
@@ -63,7 +62,7 @@ uint8_t getUartData(void)
 }
 
 
-void Board_UART_Init(LPC_USART_T *pUART)
+void initUarts(LPC_USART_T *pUART)
 {
 	Chip_SCU_PinMuxSet (UARTx_TX_PORT, UARTx_TX_PIN, UARTx_TX_MODE);
 	Chip_SCU_PinMuxSet (UARTx_RX_PORT, UARTx_RX_PIN, UARTx_RX_MODE);

@@ -7,7 +7,6 @@
 
 
 #include "teclas.h"
-#include "cmsis_43xx.h"
 
 
 typedef struct {

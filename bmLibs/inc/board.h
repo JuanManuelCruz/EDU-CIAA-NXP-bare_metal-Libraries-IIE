@@ -13,22 +13,26 @@
 #endif
 #if (lpc4337 == CPU)
 #include "chip.h"
+#include "cmsis_43xx.h"
 #elif (mk60fx512vlq15 == CPU)
 #else
 #endif
 
+
 #include "irqs.h"
 #include "leds.h"
 #include "rgbs.h"
-#include "teclas.h"
 #include "gpios.h"
+#include "rits.h"
 #include "pwms.h"
 #include "uarts.h"
+#include "adcs.h"
+#include "dacs.h"
 #include "delays.h"
+#include "teclas.h"
 
 
 void initBoard (void);
-//void initADC (void);
 
 
 #endif /* BOARD_H_ */

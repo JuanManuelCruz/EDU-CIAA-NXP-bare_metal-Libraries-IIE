@@ -7,8 +7,6 @@
 
 
 #include "irqs.h"
-#include "cmsis_43xx.h"
-#include "delays.h"
 
 
 void pinStatus (irq_t irqNumber);

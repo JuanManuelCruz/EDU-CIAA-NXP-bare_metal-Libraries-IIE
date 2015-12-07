@@ -7,8 +7,6 @@
 
 
 #include "gpios.h"
-#include "delays.h"
-#include "cmsis_43xx.h"
 
 
 void initGpios (void)

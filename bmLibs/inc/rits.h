@@ -1,12 +1,13 @@
-/*
- * delays.h
+ /*
+ *  pwms.h
  *
  *  Created on: 12/11/2015
  *      Author: Juan Manuel Cruz
  */
 
-#ifndef DELAYS_H_
-#define DELAYS_H_
+#ifndef RITS_H_
+#define RITS_H_
+
 
 #ifndef CPU
 #error CPU shall be defined
@@ -19,8 +20,7 @@
 #endif
 
 
-void delay_ms (uint32_t);
-void debounce_ms (uint32_t);
+void configRit (uint16_t timeInterval_ms, void (*isr)(void));
 
 
-#endif /* DELAYS_H_ */
+#endif /* RITS_H_ */

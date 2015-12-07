@@ -5,8 +5,8 @@
  *      Author: Juan Manuel Cruz
  */
 
+
 #include "leds.h"
-#include "delays.h"
 
 
 void initLeds (void)
